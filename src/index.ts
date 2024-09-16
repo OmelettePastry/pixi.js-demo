@@ -1,6 +1,4 @@
 import { Application, Sprite } from 'pixi.js'
-import { Maze } from './models/maze';
-import { Graph } from './models/graph';
 
 const app = new Application<HTMLCanvasElement>({
     view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
@@ -19,5 +17,3 @@ clampy.x = app.screen.width / 2;
 clampy.y = app.screen.height / 2;
 
 app.stage.addChild(clampy);
-
-let newGraph = Graph.generateRandomWeightSquareGridGraph(2, 2);
