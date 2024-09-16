@@ -8,6 +8,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "graphology": "^0.25.4",
     "pixi.js": "^7.4.0"
   },
   "devDependencies": {

@@ -1,55 +1,55 @@
 import { PriorityQueueElement } from "../types/priority-queue-element";
 
 export class PriorityQueue<T> {
-    private elements: PriorityQueueElement<T>[] = [];
+    private _elements: PriorityQueueElement<T>[] = [];
 
     constructor() {}
 
     public enqueue(value: T, priority: number): void {
         const element = { value, priority };
-        this.elements.push(element);
-        this.bubbleUp(this.elements.length - 1);
+        this._elements.push(element);
+        this.bubbleUp(this._elements.length - 1);
     }
 
     public dequeue(): T | undefined {
-        const result = this.elements[0];
-        const end = this.elements.pop();
-        if (this.elements.length > 0 && end) {
-            this.elements[0] = end;
+        const result = this._elements[0];
+        const end = this._elements.pop();
+        if (this._elements.length > 0 && end) {
+            this._elements[0] = end;
             this.bubbleDown(0);
         }
         return result ? result.value : undefined;
     }
 
     public isEmpty(): boolean {
-        return this.elements.length === 0;
+        return this._elements.length === 0;
     }
 
     public length(): number {
-        return this.elements.length;
+        return this._elements.length;
     }
 
     public peek(): T | undefined {
-        return this.elements[0]?.value;
+        return this._elements[0]?.value;
     }
 
     private bubbleUp(index: number): void {
-        const element = this.elements[index];
+        const element = this._elements[index];
         while (index > 0) {
             const parentIndex = Math.floor((index - 1) / 2);
-            const parent = this.elements[parentIndex];
+            const parent = this._elements[parentIndex];
             if (element.priority >= parent.priority) {
                 break;
             }
-            this.elements[parentIndex] = element;
-            this.elements[index] = parent;
+            this._elements[parentIndex] = element;
+            this._elements[index] = parent;
             index = parentIndex;
         }
     }
 
     private bubbleDown(index: number): void {
-        const length = this.elements.length;
-        const element = this.elements[index];
+        const length = this._elements.length;
+        const element = this._elements[index];
 
         while (true) {
             const leftChildIndex = 2 * index + 1;
@@ -59,14 +59,14 @@ export class PriorityQueue<T> {
             let swap = null;
 
             if (leftChildIndex < length) {
-                leftChild = this.elements[leftChildIndex];
+                leftChild = this._elements[leftChildIndex];
                 if (leftChild.priority < element.priority) {
                     swap = leftChildIndex;
                 }
             }
 
             if (rightChildIndex < length) {
-                rightChild = this.elements[rightChildIndex];
+                rightChild = this._elements[rightChildIndex];
                 if (
                     (swap === null && rightChild.priority < element.priority) ||
                     (swap !== null && rightChild.priority < leftChild.priority)
@@ -79,8 +79,8 @@ export class PriorityQueue<T> {
                 break;
             }
 
-            this.elements[index] = this.elements[swap];
-            this.elements[swap] = element;
+            this._elements[index] = this._elements[swap];
+            this._elements[swap] = element;
             index = swap;
         }
     }
